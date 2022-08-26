@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
 
 //const client = ipfsHttpClient('https://ipfs.infura.io:5001')
-const projectId = process.env.INFURA_IPFS_PROJECT_ID 
-const projectSecret = process.env.INFURA_IPFS_PROJECT_SECRET
+const projectId = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_ID 
+const projectSecret = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_SECRET
 const authorization = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64')
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
