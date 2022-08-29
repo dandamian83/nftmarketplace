@@ -1,6 +1,27 @@
 require("@nomiclabs/hardhat-waffle");
+
 const fs = require('fs');
-// const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
+
+task("deploy-task", "Deploy task")
+  .addPositionalParam("net")
+  .setAction(async (taskArgs, hre) => {
+    const NFTMarketplace = await hre.ethers.getContractFactory("NFTMarketplace");
+    const nftMarketplace = await NFTMarketplace.deploy();
+    await nftMarketplace.deployed();
+    console.log("nftMarketplace deployed to:", nftMarketplace.address);
+    if (taskArgs.net === "localhost") {
+      console.log("using localhost hardhat network");
+    } else if (taskArgs.net === "mumbai") {
+      console.log("using Polygon Mumbai testnet");
+    } else {
+      console.log("Error: unknown network...");
+    }
+    
+    fs.writeFileSync('./config.js', `
+        export const marketplaceAddress = "${nftMarketplace.address}"
+        export const network = "${taskArgs.net}"
+    `)
+  });
 
 module.exports = {
   defaultNetwork: "hardhat",

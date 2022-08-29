@@ -4,13 +4,16 @@
 cd /usr/src/app;
 
 # Run hardhat
-yarn start:local &
+#yarn start:local &
 
 # Deploy Smart Contracts
-yarn deploy:local
+#yarn deploy:local
 
 # Run next client
-yarn client:dev
+#yarn client:dev
+
+# Set environment variable
+
 
 # Keep node alive
 set -e

@@ -4,7 +4,8 @@ import axios from 'axios'
 import Web3Modal from 'web3modal'
 
 import {
-  marketplaceAddress
+  marketplaceAddress,
+  network
 } from '../config'
 
 import NFTMarketplace from '../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json'
@@ -18,9 +19,9 @@ export default function Home() {
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
     // JsonRpcProvider: If no urlOrConnectionInfo is specified the defaul (http://localhost:8545) is used.
-    const provider = new ethers.providers.JsonRpcProvider() 
+    // const provider = new ethers.providers.JsonRpcProvider() 
     // JsonRpcProvider to connect to Polygon Mumbai (testnet)
-    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/k1oaxl2Udguk2tRRRTVNlWy1oI-Ti9qM") 
+    const provider = new ethers.providers.JsonRpcProvider(network === "mumbai" ? "https://polygon-mumbai.g.alchemy.com/v2/k1oaxl2Udguk2tRRRTVNlWy1oI-Ti9qM": undefined) 
     const contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, provider)
     const data = await contract.fetchMarketItems()
 
@@ -62,8 +63,20 @@ export default function Home() {
     await transaction.wait()
     loadNFTs()
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
-  return (
+
+  const showDetails = () => {
+    return <div style={{fontSize: "0.7rem", marginLeft: "0.4rem"}}>
+        <div><small>Connected @ <b>{network}</b></small></div>
+        <div><small>NFTMarketplace SC Address: <b>{marketplaceAddress}</b></small></div>
+    </div>
+  }
+
+  if (loadingState === 'loaded' && !nfts.length) return (<div>
+      {showDetails()}
+      <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>
+    </div>)
+  return (<>
+    {showDetails()}
     <div className="flex justify-center">
       <div className="px-4" style={{ maxWidth: '1600px' }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
@@ -87,5 +100,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   )
 }
