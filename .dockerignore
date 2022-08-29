@@ -1,0 +1,9 @@
+artifacts
+cache
+node_modules
+test
+*.log
+.git
+.gitignore
+.next
+package-lock.json

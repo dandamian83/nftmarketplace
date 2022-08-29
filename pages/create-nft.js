@@ -32,12 +32,14 @@ export default function CreateItem() {
   async function onChange(e) {
     const file = e.target.files[0]
     try {
+      console.log("client", client);
       const added = await client.add(
         file,
         {
           progress: (prog) => console.log(`received: ${prog}`)
         }
       )
+      console.log("Added", added ? added.path : "not added")
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       setFileUrl(url)
     } catch (error) {

@@ -18,9 +18,9 @@ export default function Home() {
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
     // JsonRpcProvider: If no urlOrConnectionInfo is specified the defaul (http://localhost:8545) is used.
-    // const provider = new ethers.providers.JsonRpcProvider() 
+    const provider = new ethers.providers.JsonRpcProvider() 
     // JsonRpcProvider to connect to Polygon Mumbai (testnet)
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/k1oaxl2Udguk2tRRRTVNlWy1oI-Ti9qM") 
+    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/k1oaxl2Udguk2tRRRTVNlWy1oI-Ti9qM") 
     const contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, provider)
     const data = await contract.fetchMarketItems()
 
