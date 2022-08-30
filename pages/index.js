@@ -31,7 +31,18 @@ export default function Home() {
     */
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await contract.tokenURI(i.tokenId)
-      const meta = await axios.get(tokenUri)
+      //const meta = await axios.get.get(tokenUri)
+      console.log("Token uri", tokenUri);
+      let meta = { data: {}};
+      try {
+         meta = await axios({
+          method: 'get',
+          url: tokenUri,
+          timeout: 2000
+        })
+      } catch (err) {
+        console.log("Get metadata from IPFS failed...", err)
+      }
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
         price,

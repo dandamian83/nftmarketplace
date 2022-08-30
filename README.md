@@ -17,16 +17,22 @@ docker build . -t nftmarketplace;
 
   
 
-### Run
+### Instantiate a new container
 
-docker run -it -d -p 8545:8545 -p 3000:3000 --name nftm nftmarketplace;
-  
+docker run -it -d -p 8545:8545 -p 3000:3000 --name nftm nftmarketplace;  
+
+### Compile Smart Contract
 
 #### Run the Marketplace on localhost
 Connect to the container's console (I'm using Docker Desktop).
 Start local hardhat
 
-    $yarn start:local
+    $yarn start:local &
+
+Compile smart contracts. You need to do this specifically because the Hardhat task that will be invoked 
+at the next step won't download the Solidity compiler.
+    $npx hardhat compile
+
 
 Deploy Smart Contracts
 
