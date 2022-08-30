@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Change to the correct directory
+# Change to the correct directory 
 cd /usr/src/app;
 # Run hardhat
 #yarn start:local &
