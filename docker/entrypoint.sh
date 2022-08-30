@@ -2,7 +2,6 @@
 
 # Change to the correct directory
 cd /usr/src/app;
-
 # Run hardhat
 #yarn start:local &
 
@@ -11,9 +10,6 @@ cd /usr/src/app;
 
 # Run next client
 #yarn client:dev
-
-# Set environment variable
-
 
 # Keep node alive
 set -e
