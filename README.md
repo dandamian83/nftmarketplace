@@ -26,7 +26,7 @@ Using this docker image you can run the marketplace on local hardhat or on the P
 
   
 
-    docker build . -t nftmarketplace;
+    $docker build . -t nftmarketplace;
 
   
 
@@ -36,7 +36,7 @@ Using this docker image you can run the marketplace on local hardhat or on the P
 
   
 
-	docker run -it -d -p 8545:8545 -p 3000:3000 --name nftm nftmarketplace;
+	$docker run -it -d -p 8545:8545 -p 3000:3000 --name nftm nftmarketplace;
 
   
 
