@@ -38,7 +38,7 @@ export default function Home() {
          meta = await axios({
           method: 'get',
           url: tokenUri,
-          timeout: 2000
+          timeout: 10000
         })
       } catch (err) {
         console.log("Get metadata from IPFS failed...", err)

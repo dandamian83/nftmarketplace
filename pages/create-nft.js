@@ -7,6 +7,7 @@ import Web3Modal from 'web3modal'
 //const client = ipfsHttpClient('https://ipfs.infura.io:5001')
 const projectId = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_ID 
 const projectSecret = process.env.NEXT_PUBLIC_INFURA_IPFS_PROJECT_SECRET
+const ipfsGateway = process.env.NEXT_PUBLIC_IPFS_DEDICATED_GATEWAY
 const authorization = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64')
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
@@ -40,7 +41,7 @@ export default function CreateItem() {
         }
       )
       console.log("Added", added ? added.path : "not added")
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `${ipfsGateway}/ipfs/${added.path}`
       setFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -55,7 +56,7 @@ export default function CreateItem() {
     })
     try {
       const added = await client.add(data)
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `${ipfsGateway}/ipfs/${added.path}`
       /* after file is uploaded to IPFS, return the URL to use it in the transaction */
       console.log("Image url", url);
       return url
